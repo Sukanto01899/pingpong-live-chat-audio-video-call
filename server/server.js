@@ -18,7 +18,7 @@ app.use(cors({
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: true,
+    origin: "https://pingpong-live-chat-audio-video-call.onrender.com",
     credentials: true
   }
 }) // create socket.io server
