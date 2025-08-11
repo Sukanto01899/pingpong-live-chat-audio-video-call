@@ -1,9 +1,10 @@
 const mongoose = require("mongoose");
 
 const connectDB = async () => {
+  console.log(process.env.MONGODB_URI)
   try {
     const conn = await mongoose.connect(
-      process.env.MONGODB_URI,
+      process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/PingPong",
       {
         useNewUrlParser: true,
         useUnifiedTopology: true,
@@ -26,5 +27,5 @@ const connectDB = async () => {
 };
 
 
-
+//  || "mongodb://127.0.0.1:27017/PingPong"
 module.exports = connectDB;
