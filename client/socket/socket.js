@@ -3,7 +3,6 @@ import io from 'socket.io-client';
 let socket = null
 
 export const connectSocket = ()=>{
-    // "http://localhost:3000", 
     socket = io({
         withCredentials: true
     })
@@ -19,3 +18,4 @@ export const disconnectSocket = ()=>{
         socket = null
     }
 }
+// "http://localhost:3000", 

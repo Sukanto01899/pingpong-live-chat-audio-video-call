@@ -11,7 +11,7 @@ const initSocket = require('./config/socket');
 const PORT = process.env.PORT || 3000;
 
 app.use(cors({
-  origin: "http://localhost:5173", // Vite frontend origin
+  origin: true, // Vite frontend origin
   credentials: true
 }));
 
