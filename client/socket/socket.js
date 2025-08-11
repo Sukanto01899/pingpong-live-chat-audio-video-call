@@ -3,9 +3,8 @@ import io from 'socket.io-client';
 let socket = null
 
 export const connectSocket = ()=>{
-    socket = io({
+    socket = io('https://pingpong-live-chat-audio-video-call.onrender.com',{
         withCredentials: true,
-        transports: ['websocket']
     })
 
     return socket;
