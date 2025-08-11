@@ -17,5 +17,4 @@ export const disconnectSocket = ()=>{
         socket.disconnect();
         socket = null
     }
-}
-// "http://localhost:3000", 
+} 
