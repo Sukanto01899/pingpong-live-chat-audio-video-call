@@ -4,7 +4,8 @@ let socket = null
 
 export const connectSocket = ()=>{
     socket = io({
-        withCredentials: true
+        withCredentials: true,
+        transports: ['websocket']
     })
 
     return socket;
