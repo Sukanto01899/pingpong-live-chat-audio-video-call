@@ -18,7 +18,8 @@ app.use(cors({
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "*"
+    origin: true,
+    credentials: true
   }
 }) // create socket.io server
 
@@ -30,6 +31,5 @@ connectDB()
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-
+// "http://localhost:5173"
 // methods: ["GET", "POST"],
-    // credentials: true
