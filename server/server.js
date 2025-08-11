@@ -3,22 +3,21 @@ const http = require('http');
 const {Server} = require('socket.io');
 require('dotenv').config();
 const app = require('./app');
-const cors = require("cors")
+// const cors = require("cors")
 const socketHandler = require('./sockets');
 const connectDB = require('./config/database');
 const initSocket = require('./config/socket');
 
 const PORT = process.env.PORT || 3000;
 
-app.use(cors({
-  origin: true, // Vite frontend origin
-  credentials: true
-}));
+// app.use(cors({
+//   origin: true, // Vite frontend origin
+//   credentials: true
+// }));
 
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "https://pingpong-live-chat-audio-video-call.onrender.com",
     credentials: true
   }
 }) // create socket.io server

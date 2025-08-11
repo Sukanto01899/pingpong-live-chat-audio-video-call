@@ -8,9 +8,9 @@ export default defineConfig({
   build: {
     outDir:'../server/dist'
   },
-  server: {
-    proxy:{
-      '/api': 'https://pingpong-live-chat-audio-video-call.onrender.com'
-    }
-  }
+  // server: {
+  //   proxy:{
+  //     '/api': 'https://pingpong-live-chat-audio-video-call.onrender.com'
+  //   }
+  // }
 })
