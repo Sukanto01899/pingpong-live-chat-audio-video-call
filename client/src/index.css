@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+@theme {
+  --color-pink-100: #F9F5F6;
+  --color-pink-200: #F8E8EE;
+  --color-pink-300: #FDCEDF;
+  --color-pink-400: #F2BED1;
+}
+
+body{
+  background-color: #F9F5F6;
+  font-family: "Josefin Sans", sans-serif;
+  font-optical-sizing: auto;
+}

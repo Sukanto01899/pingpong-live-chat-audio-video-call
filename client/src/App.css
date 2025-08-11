@@ -1,0 +1,5 @@
+@reference "./index.css";
+
+.input{
+    @apply hover:outline-none border-none focus:outline-none w-full pl-10 py-2 font-medium text-[18px] 
+}
