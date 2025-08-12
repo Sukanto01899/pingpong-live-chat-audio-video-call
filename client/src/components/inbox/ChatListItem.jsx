@@ -8,7 +8,6 @@ const ChatListItem = ({ friend }) => {
     const [friendData, setFriendData] = useState(null)
 
     const handleSelectChat = () => {
-        console.log(friendData)
         dispatch(selectChat(friendData));
     };
 

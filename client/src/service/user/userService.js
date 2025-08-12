@@ -3,6 +3,7 @@ import { baseQuery } from "../baseQuery";
 
 export const userApi = createApi({
     reducerPath: "userApi",
+    tagTypes: ["myFriends"],
     baseQuery: baseQuery,
     endpoints: (builder)=>({
         getMyProfile: builder.query({
@@ -15,13 +16,15 @@ export const userApi = createApi({
             query: ()=>({
                 url: "/friends/my",
                 method: "GET"
-            })
+            }),
+            providesTags: ["myFriends"]
         }),
         getAllUsers: builder.query({
             query: ({page, limit})=>({
                 url: `/users/all/?limit=${limit}&page=${page}`,
                 method: 'GET'
-            })
+            }),
+            providesTags: ["myFriends"]
         })
     })
 })

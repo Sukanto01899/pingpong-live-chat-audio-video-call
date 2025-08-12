@@ -1,9 +1,15 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { selectChat } from '../../redux/chat/chatSlice';
+import { changeRoute } from '../../redux/routes/routeSlice';
 
 const FriendListItem = ({user}) => {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+
+    const handleFriendSelect = ()=>{
+        dispatch(selectChat(user))
+        dispatch(changeRoute('inbox'))
+    }
     return (
         <div className='flex justify-between items-center px-3 py-2'>
             <div className='flex gap-2 items-center'>
@@ -16,7 +22,7 @@ const FriendListItem = ({user}) => {
                 </div>
             </div>
 
-            <button onClick={()=> dispatch(selectChat(user))} className='bg-pink-500 px-2 py-1 cursor-pointer rounded-2xl text-white font-bold'>Send GM</button>
+            <button onClick={handleFriendSelect} className='bg-pink-500 px-2 py-1 cursor-pointer rounded-2xl text-white font-bold'>Send GM</button>
         </div>
     );
 };
