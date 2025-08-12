@@ -1,14 +1,57 @@
-const { success } = require("zod");
+// middleware/errorHandler.js (enhanced version)
+const errorHandler = (err, req, res, next) => {
+  let error = { ...err };
+  error.message = err.message;
 
-const errorHandler = (err, req, res, next)=>{
-    const statusCode = err.statusCode || 500;
-    const message = err.message || "Internal server error!";
+  // Log error
+  if (process.env.NODE_ENV !== 'production') {
+    console.error('❌ Error:', err.stack);
+  } else {
+    console.error('❌ Error:', err.message);
+  }
 
-    res.status(statusCode).json({
-        success: false,
-        message,
-         ...(process.env.NODE_ENV === 'dev' && { stack: err.stack })
-    })
-}
+  // Mongoose bad ObjectId
+  if (err.name === 'CastError') {
+    const message = 'Resource not found';
+    error = { message, status: 404 };
+  }
+
+  // Mongoose duplicate key
+  if (err.code === 11000) {
+    const message = 'Duplicate field value entered';
+    error = { message, status: 400 };
+  }
+
+  // Mongoose validation error
+  if (err.name === 'ValidationError') {
+    const message = Object.values(err.errors).map(val => val.message);
+    error = { message, status: 400 };
+  }
+
+  // JWT errors
+  if (err.name === 'JsonWebTokenError') {
+    const message = 'Invalid token';
+    error = { message, status: 401 };
+  }
+
+  if (err.name === 'TokenExpiredError') {
+    const message = 'Token expired';
+    error = { message, status: 401 };
+  }
+
+  // Rate limit error
+  if (err.status === 429) {
+    error = { 
+      message: 'Too many requests, please try again later',
+      status: 429 
+    };
+  }
+
+  res.status(error.status || 500).json({
+    success: false,
+    error: error.message || 'Server Error',
+    ...(process.env.NODE_ENV !== 'production' && { stack: err.stack })
+  });
+};
 
 module.exports = errorHandler;

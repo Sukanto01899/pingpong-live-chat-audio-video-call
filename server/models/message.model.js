@@ -43,15 +43,14 @@ const messageSchema = new mongoose.Schema(
   }
 );
 
-messageSchema.statics.findMessages = async function (loggedUserId, friendId) {
-  if (!loggedUserId || !friendId) throw new ApiError(400, "Please provide id!");
+messageSchema.statics.findMessages = async function ({userId, friendId, limit, skip}) {
+  if (!userId || !friendId) throw new ApiError(400, "Please provide id!");
   const messages = await this.find({
     $or: [
-      { sender: loggedUserId, receiver: friendId },
-      { sender: friendId, receiver: loggedUserId },
+      { sender: userId, receiver: friendId },
+      { sender: friendId, receiver: userId },
     ],
-  })
-    .sort({ createdAt: 1 })
+  }).limit(limit).skip(limit * skip).sort({ createdAt: 1 })
 
   return messages;
 };

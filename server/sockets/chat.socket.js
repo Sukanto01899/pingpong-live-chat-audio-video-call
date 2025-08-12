@@ -3,12 +3,11 @@ const Friendship = require('../models/friendship.model')
 
 function registerChatHandlers(io, socket){
     // Listen for message send
-  socket.on("chat:send", async (data) => {
+  socket.on("chat:send", async (data, callback) => {
     const { to, message } = data;
     let messagesCount;
-    // console.log(data.message)
-    // console.log(socket.user, to)
-
+   
+    // user message count
    if(socket.user && to){
     messagesCount =await Message.getMessageCount(socket.user, to);
    }
@@ -19,11 +18,9 @@ function registerChatHandlers(io, socket){
     // Save to DB (Message model)
     const savedMsg = await Message.create({sender: socket.user, receiver: to, content: message});
 
-    // Example: await Message.create({ from: socket.userId, to, message });
-    //  console.log(savedMsg)
     // Emit to receiver if online
-    io.to(socket.user).emit("chat:receive", savedMsg);
     io.to(to).emit("chat:receive", savedMsg);
+    callback({ status: 'ok', messageId: savedMsg._id })
   });
 
   socket.on("chat:typing", (data)=>{

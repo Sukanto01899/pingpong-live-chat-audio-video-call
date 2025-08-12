@@ -1,31 +1,35 @@
 // server.js
-const http = require('http');
-const {Server} = require('socket.io');
-require('dotenv').config();
-const app = require('./app');
-// const cors = require("cors")
-const socketHandler = require('./sockets');
-const connectDB = require('./config/database');
-const initSocket = require('./config/socket');
+const http = require("http");
+const { Server } = require("socket.io");
+require("dotenv").config();
+const app = require("./app");
+const cors = require("cors")
+const socketHandler = require("./sockets");
+const connectDB = require("./config/database");
+const initSocket = require("./config/socket");
 
 const PORT = process.env.PORT || 3000;
 
-// app.use(cors({
-//   origin: true, // Vite frontend origin
-//   credentials: true
-// }));
+// if (process.env.NODE_ENV === "dev") {
+//   app.use(cors({
+//     origin: "http://localhost:5173", // Vite frontend origin
+//     credentials: true
+//   }));
+// }
 
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    credentials: true
-  }
-}) // create socket.io server
+    // origin: "http://localhost:5173",
+    credentials: true,
+    // methods: ["GET", "POST"]
+  },
+}); // create socket.io server
 
-initSocket(io)
+initSocket(io);
 
 // Database connect
-connectDB()
+connectDB();
 
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
