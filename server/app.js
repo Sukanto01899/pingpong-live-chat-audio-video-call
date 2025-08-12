@@ -21,22 +21,45 @@ const app = express(); //create express server
 app.set('trust proxy', 1);
 
 // Security middleware
-app.use(helmet({
-  contentSecurityPolicy: {
-    directives: {
-      defaultSrc: ["'self'"],
-      styleSrc: ["'self'", "'unsafe-inline'"],
-      scriptSrc: ["'self'"],
-      imgSrc: ["'self'", "data:", "https:"],
-      connectSrc: ["'self'", "wss:", "ws:"],
-      fontSrc: ["'self'"],
-      objectSrc: ["'none'"],
-      mediaSrc: ["'self'"],
-      frameSrc: ["'none'"],
-    },
-  },
-  crossOriginEmbedderPolicy: false // Disable if you need cross-origin resources
-}));
+// app.use(helmet({
+//   contentSecurityPolicy: {
+//     directives: {
+//       defaultSrc: ["'self'"],
+//       styleSrc: [
+//         "'self'", 
+//         "'unsafe-inline'",
+//         "https://fonts.googleapis.com"
+//       ],
+//       scriptSrc: [
+//         "'self'",
+//         "https://cdn.lordicon.com"
+//       ],
+//       imgSrc: [
+//         "'self'", 
+//         "data:", 
+//         "https:",
+//         "https://cdn.lordicon.com"
+//       ],
+//       connectSrc: [
+//         "'self'", 
+//         "wss:", 
+//         "ws:",
+//         "https://fonts.googleapis.com",
+//         "https://fonts.gstatic.com",
+//         "https://cdn.lordicon.com"
+//       ],
+//       fontSrc: [
+//         "'self'",
+//         "https://fonts.gstatic.com",
+//         "data:"
+//       ],
+//       objectSrc: ["'none'"],
+//       mediaSrc: ["'self'"],
+//       frameSrc: ["'none'"]
+//     }
+//   },
+//   crossOriginEmbedderPolicy: false
+// }));
 
 // Rate limiting
 const limiter = rateLimit({
